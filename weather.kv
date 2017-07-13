@@ -1,5 +1,19 @@
 # -*- coding: utf-8 -*-
 #:import hex kivy.utils.get_color_from_hex
+<Separator@Widget>:
+    id: separator
+    size_hint_y: None
+    height: 6
+    thickness: 2
+    canvas:
+        Color:
+            rgb: .24, .65, .94
+        Rectangle:
+            #pos: 0, separator.center_y
+            pos: self.pos[0], separator.center_y
+            size: separator.width, self.thickness
+
+
 <Screen>:
     id: screen
     popup: popup.__self__
@@ -9,6 +23,7 @@
     label_description: label_description.__self__
     label_humidity: label_humidity.__self__
     label_pressure: label_pressure.__self__
+    label_wind: label_wind.__self__
     change_city: change_city.__self__
     image_icon: image_icon.__self__
     pb: pb.__self__
@@ -104,7 +119,7 @@
                 height: '48dp'
 
     GridLayout:
-        rows: 6
+        rows: 7
         padding: 10
         spacing: 10
         ActionBar:                  # ROW 1
@@ -154,7 +169,16 @@
                 Label:
                     id: label_humidity
                     text: '-'
+            BoxLayout:
+                Label:
+                    id: label_wind_info
+                    text: 'Wiatr: '
+                Label:
+                    id: label_wind
+                    text: '-'
+        Separator:
         BoxLayout:
+
             Label:
                 text: 'Prognoza:'
                 font_size: 20

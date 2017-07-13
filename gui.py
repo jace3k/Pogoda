@@ -34,6 +34,7 @@ class Screen(FloatLayout):
                 self.label_description.text = json_data['weather'][0]['description']
                 self.label_pressure.text = str(json_data['main']['pressure']) + ' hPa'
                 self.label_humidity.text = str(json_data['main']['humidity']) + '%'
+                self.label_wind.text = str(json_data['wind']['speed']) + ' m/s'
                 self.image_icon.source = 'http://openweathermap.org/img/w/' + json_data['weather'][0]['icon'] + '.png'
 
 
