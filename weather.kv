@@ -1,0 +1,216 @@
+# -*- coding: utf-8 -*-
+#:import hex kivy.utils.get_color_from_hex
+<Screen>:
+    id: screen
+    popup: popup.__self__
+    popup_loading: popup_loading.__self__
+    label_temp: label_temp.__self__
+    label_city: label_city.__self__
+    label_description: label_description.__self__
+    label_humidity: label_humidity.__self__
+    label_pressure: label_pressure.__self__
+    change_city: change_city.__self__
+    image_icon: image_icon.__self__
+    pb: pb.__self__
+
+    forecast_icon_1: forecast_icon_1.__self__
+    forecast_label_1: forecast_label_1.__self__
+
+    forecast_icon_2: forecast_icon_2.__self__
+    forecast_label_2: forecast_label_2.__self__
+
+    forecast_icon_3: forecast_icon_3.__self__
+    forecast_label_3: forecast_label_3.__self__
+
+    forecast_icon_4: forecast_icon_4.__self__
+    forecast_label_4: forecast_label_4.__self__
+
+    forecast_icon_5: forecast_icon_5.__self__
+    forecast_label_5: forecast_label_5.__self__
+
+    temp_forecast_label_1: temp_forecast_label_1.__self__
+    temp_forecast_label_2: temp_forecast_label_2.__self__
+    temp_forecast_label_3: temp_forecast_label_3.__self__
+    temp_forecast_label_4: temp_forecast_label_4.__self__
+    temp_forecast_label_5: temp_forecast_label_5.__self__
+
+
+
+
+    input_city: input_city.__self__
+
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: hex('#4286f4')
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        id: box_popup
+
+        Popup:
+            focused: input_city
+            size_hint: (None, None)
+            size: 400, 160
+            size_hint_y: None
+            id: popup
+            title: 'Miasto'
+            on_parent:
+                if self.parent == box_popup: self.parent.remove_widget(self)
+                input_city.focus = True
+            BoxLayout:
+                padding: 10
+                spacing: 10
+                orientation: 'vertical'
+                TextInput:
+                    id: input_city
+                    size_hint_y: None
+                    height: '32dp'
+                    multiline: False
+                    text: ''
+                    on_text_validate:
+                        root.weather.city = root.input_city.text
+                        popup.dismiss()
+                        root.popup_loading.open()
+                        root.popen()
+                        root.open_thread()
+                        input_city.text = ''
+                Button:
+                    id: change_city
+                    text: 'Zmień'
+                    size_hint_y: None
+                    height: '32dp'
+                    on_press:
+                        root.weather.city = root.input_city.text
+                        popup.dismiss()
+                        root.popup_loading.open()
+                        root.popen()
+                        root.open_thread()
+                        input_city.text = ''
+        Popup:
+            size_hint: (None, None)
+            size: 400, 110
+            size_hint_y: None
+            id: popup_loading
+            title: 'Ładowanie..'
+            on_parent:
+                if self.parent == box_popup: self.parent.remove_widget(self)
+            ProgressBar:
+                padding: 20
+                spacing: 20
+                id: pb
+                size_hint_x: .5
+                size_hint_y: None
+                height: '48dp'
+
+    GridLayout:
+        rows: 6
+        padding: 10
+        spacing: 10
+        ActionBar:                  # ROW 1
+            pos_hint: {'top':1}
+            ActionView:
+                ActionPrevious:
+                    title: 'Pogoda'
+                    with_previous: False
+                ActionOverflow:
+                ActionButton:
+                    text: 'Btn0'
+                    icon: 'search.png'
+                    on_release: root.popup.open()
+        BoxLayout:                  # ROW 2
+            Label:
+                id: label_temp
+                text: '-'
+                #pos_hint: {"center_x":0.2, "center_y":0.7}
+                font_size: 80
+
+            Label:
+                id: label_city
+                text: 'Zapraszamy!'
+                font_size: 45
+
+        BoxLayout:                  # ROW 3
+            BoxLayout:
+                AsyncImage:
+                    id: image_icon
+                    source: ''
+            Label:
+                id: label_description
+                text: '-'
+
+        BoxLayout:                  # ROW 4
+            BoxLayout:
+                Label:
+                    id: label_pressure_info
+                    text: 'Ciśnienie: '
+                Label:
+                    id: label_pressure
+                    text: '-'
+            BoxLayout:
+                Label:
+                    id: label_humidity_info
+                    text: 'Wilgotność: '
+                Label:
+                    id: label_humidity
+                    text: '-'
+        BoxLayout:
+            Label:
+                text: 'Prognoza:'
+                font_size: 20
+        BoxLayout:
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: forecast_label_1
+                    text: ''
+                AsyncImage:
+                    id: forecast_icon_1
+                    src: ''
+                Label:
+                    id: temp_forecast_label_1
+                    text: ''
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: forecast_label_2
+                    text: ''
+                AsyncImage:
+                    id: forecast_icon_2
+                    src: ''
+                Label:
+                    id: temp_forecast_label_2
+                    text: ''
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: forecast_label_3
+                    text: ''
+                AsyncImage:
+                    id: forecast_icon_3
+                    src: ''
+                Label:
+                    id: temp_forecast_label_3
+                    text: ''
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: forecast_label_4
+                    text: ''
+                AsyncImage:
+                    id: forecast_icon_4
+                    src: ''
+                Label:
+                    id: temp_forecast_label_4
+                    text: ''
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: forecast_label_5
+                    text: ''
+                AsyncImage:
+                    id: forecast_icon_5
+                    src: ''
+                Label:
+                    id: temp_forecast_label_5
+                    text: ''
